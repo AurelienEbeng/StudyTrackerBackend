@@ -34,7 +34,7 @@ public class AuthenticationService {
     }
 
 
-    public AuthenticationResponse register(User request){
+    public String register(User request){
         var user = new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
@@ -42,8 +42,7 @@ public class AuthenticationService {
         user.setRole(request.getRole());
         user.setDateJoined(new Date());
         userRepository.save(user);
-        String token = jwtService.generateToken(user, generateExtraClaims(user));
-        return  new AuthenticationResponse(token);
+        return  "User Created Successfully";
     }
 
 
@@ -56,7 +55,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(authToken);
         User user = userRepository.findByEmail(authenticationRequest.getEmail()).get();
         String jwt = jwtService.generateToken(user, generateExtraClaims(user));
-        return new AuthenticationResponse(jwt);
+        return new AuthenticationResponse(jwt, user.getId(),user.getUsername());
     }
 
 

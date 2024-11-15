@@ -20,7 +20,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody User request){
+    public ResponseEntity<String> register(@RequestBody User request){
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
