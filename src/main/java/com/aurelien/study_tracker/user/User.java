@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,7 @@ public class User implements UserDetails {
 
     private  String password;
 
-    private Date dateJoined;
+    private LocalDateTime dateJoined;
 
 
     @Enumerated(EnumType.STRING)
@@ -71,11 +72,11 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public Date getDateJoined() {
+    public LocalDateTime getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(Date dateJoined) {
+    public void setDateJoined(LocalDateTime dateJoined) {
         this.dateJoined = dateJoined;
     }
 

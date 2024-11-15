@@ -3,6 +3,7 @@ package com.aurelien.study_tracker.user;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class UserResponse {
@@ -13,7 +14,7 @@ public class UserResponse {
 
     private String email;
 
-    private Date dateJoined;
+    private LocalDateTime dateJoined;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -42,11 +43,11 @@ public class UserResponse {
         this.email = email;
     }
 
-    public Date getDateJoined() {
+    public LocalDateTime getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(Date dateJoined) {
+    public void setDateJoined(LocalDateTime dateJoined) {
         this.dateJoined = dateJoined;
     }
 

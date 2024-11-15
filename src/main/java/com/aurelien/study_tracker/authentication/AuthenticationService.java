@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class AuthenticationService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(request.getRole());
-        user.setDateJoined(new Date());
+        user.setDateJoined(LocalDateTime.now());
         userRepository.save(user);
         return  "User Created Successfully";
     }
@@ -53,7 +54,7 @@ public class AuthenticationService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
-        user.setDateJoined(new Date());
+        user.setDateJoined(LocalDateTime.now());
         userRepository.save(user);
         return  "User Created Successfully";
     }
@@ -64,7 +65,7 @@ public class AuthenticationService {
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.DEMO_USER);
-        user.setDateJoined(new Date());
+        user.setDateJoined(LocalDateTime.now());
         userRepository.save(user);
         return  "Demo User Created Successfully";
     }
