@@ -35,6 +35,8 @@ public class SecurityFilter {
                 .authorizeHttpRequests( authConfig -> {
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/auth/registerUser").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/auth/registerDemoUser").hasAuthority(Permission.DEMO_USER_CREATE.name());
                     authConfig.requestMatchers("/error").permitAll();
 
                     authConfig.requestMatchers(HttpMethod.GET,"/user/profile").hasAuthority(Permission.USER_DETAILS_GET_FOR_ID.name());

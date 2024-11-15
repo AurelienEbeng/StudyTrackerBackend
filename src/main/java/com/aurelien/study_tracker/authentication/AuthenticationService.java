@@ -2,6 +2,7 @@ package com.aurelien.study_tracker.authentication;
 
 
 import com.aurelien.study_tracker.config.JwtService;
+import com.aurelien.study_tracker.user.Role;
 import com.aurelien.study_tracker.user.User;
 import com.aurelien.study_tracker.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,29 @@ public class AuthenticationService {
         user.setDateJoined(new Date());
         userRepository.save(user);
         return  "User Created Successfully";
+    }
+
+
+    public String registerUser(User request){
+        var user = new User();
+        user.setEmail(request.getEmail());
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.USER);
+        user.setDateJoined(new Date());
+        userRepository.save(user);
+        return  "User Created Successfully";
+    }
+
+    public String registerDemoUser(User request){
+        var user = new User();
+        user.setEmail(request.getEmail());
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.DEMO_USER);
+        user.setDateJoined(new Date());
+        userRepository.save(user);
+        return  "Demo User Created Successfully";
     }
 
 
