@@ -2,6 +2,7 @@ package com.aurelien.study_tracker.authentication;
 
 
 import com.aurelien.study_tracker.config.JwtService;
+import com.aurelien.study_tracker.exception.UserAlreadyExistException;
 import com.aurelien.study_tracker.user.Role;
 import com.aurelien.study_tracker.user.User;
 import com.aurelien.study_tracker.user.UserRepository;
@@ -37,6 +38,9 @@ public class AuthenticationService {
 
 
     public String register(User request){
+        if (userRepository.findByEmail(request.getEmail()).isPresent()){
+            throw new UserAlreadyExistException();
+        }
         var user = new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
@@ -49,6 +53,9 @@ public class AuthenticationService {
 
 
     public String registerUser(User request){
+        if (userRepository.findByEmail(request.getEmail()).isPresent()){
+            throw new UserAlreadyExistException();
+        }
         var user = new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
@@ -60,6 +67,9 @@ public class AuthenticationService {
     }
 
     public String registerDemoUser(User request){
+        if (userRepository.findByEmail(request.getEmail()).isPresent()){
+            throw new UserAlreadyExistException();
+        }
         var user = new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
