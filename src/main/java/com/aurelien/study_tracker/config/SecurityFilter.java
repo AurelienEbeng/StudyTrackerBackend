@@ -1,5 +1,6 @@
 package com.aurelien.study_tracker.config;
 
+import com.aurelien.study_tracker.user.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,8 @@ public class SecurityFilter {
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/register").permitAll();
                     authConfig.requestMatchers("/error").permitAll();
+
+                    authConfig.requestMatchers(HttpMethod.GET,"/user/profile").hasAuthority(Permission.USER_DETAILS_GET_FOR_ID.name());
 
                     //authConfig.requestMatchers(HttpMethod.GET, "/products").hasAuthority(Permission.READ_ALL_PRODUCTS.name());
                     //authConfig.requestMatchers(HttpMethod.POST, "/products").hasAuthority(Permission.SAVE_ONE_PRODUCT.name());
