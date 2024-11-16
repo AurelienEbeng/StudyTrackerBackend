@@ -17,27 +17,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class AuthenticationService {
 
+    private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private JwtService jwtService;
-
-
-    private final PasswordEncoder passwordEncoder;
-
-    private final EmailService emailService;
+    @Autowired
+    private PasswordTokenRepository tokenRepository;
 
     public AuthenticationService(PasswordEncoder passwordEncoder, EmailService emailService) {
         this.passwordEncoder = passwordEncoder;
@@ -45,24 +39,24 @@ public class AuthenticationService {
     }
 
 
-    public String register(User request){
-        if (userRepository.findByEmail(request.getEmail()).isPresent()){
+    public String register(User request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new UserAlreadyExistException();
         }
         var user = new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole());
+        user.setRole(Role.ADMIN);
         user.setDateJoined(LocalDateTime.now());
         user.setEnabled(true);
         userRepository.save(user);
-        return  "User Created Successfully";
+        return "User Created Successfully";
     }
 
 
-    public String registerUser(User request){
-        if (userRepository.findByEmail(request.getEmail()).isPresent()){
+    public String registerUser(User request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new UserAlreadyExistException();
         }
         var user = new User();
@@ -75,11 +69,11 @@ public class AuthenticationService {
         user.setVerificationCode(generateVerificationCode());
         user.setVerificationCodeExpiresAt(LocalDateTime.now().plusMinutes(15));
         sendVerificationEmail(user);
-        return  "User Created Successfully";
+        return "User Created Successfully";
     }
 
-    public String registerDemoUser(User request){
-        if (userRepository.findByEmail(request.getEmail()).isPresent()){
+    public String registerDemoUser(User request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new UserAlreadyExistException();
         }
         var user = new User();
@@ -90,28 +84,21 @@ public class AuthenticationService {
         user.setDateJoined(LocalDateTime.now());
         user.setEnabled(true);
         userRepository.save(user);
-        return  "Demo User Created Successfully";
+        return "Demo User Created Successfully";
     }
 
 
-
-
-    public AuthenticationResponse login(AuthenticationRequest authenticationRequest){
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                authenticationRequest.getEmail(), authenticationRequest.getPassword()
-        );
+    public AuthenticationResponse login(AuthenticationRequest authenticationRequest) {
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword());
         authenticationManager.authenticate(authToken);
-        User user = userRepository.findByEmail(authenticationRequest.getEmail())
-                .orElseThrow(() ->  new UserNotFoundException());
+        User user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow(() -> new UserNotFoundException());
 
         if (!user.isEnabled()) {
             throw new AccountNotVerifiedException();
         }
         String jwt = jwtService.generateToken(user, generateExtraClaims(user));
-        return new AuthenticationResponse(jwt, user.getId(),user.getUsername());
+        return new AuthenticationResponse(jwt, user.getId(), user.getUsername());
     }
-
-
 
 
     private Map<String, Object> generateExtraClaims(User user) {
@@ -167,9 +154,72 @@ public class AuthenticationService {
         email.setText(verificationCode);
         emailService.sendEmail(email);
     }
+
     private String generateVerificationCode() {
         Random random = new Random();
         int code = random.nextInt(900000) + 100000;
         return String.valueOf(code);
+    }
+
+
+    public String forgotPassord(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new UserNotFoundException());
+        sendForgotPasswordEmail(user);
+        return "Email sent";
+    }
+
+    public void sendForgotPasswordEmail(User user) {
+
+        String resetLink = generateResetToken(user);
+
+        Email email = new Email();
+        email.setTo(user.getEmail());
+        email.setSubject("Reset Password");
+        email.setText("Hello \n\n" + "Please click on this link to Reset your Password :" + resetLink + ". \n\n" + "Regards \n" + "Aurelien");
+        emailService.sendEmail(email);
+
+    }
+
+    public String generateResetToken(User user) {
+        try{
+            PasswordResetToken token  = tokenRepository.findByUserId(user.getId()).get();
+            tokenRepository.delete(token);
+
+        } catch (Exception e) {
+
+        }
+
+        UUID uuid = UUID.randomUUID();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime expiryDateTime = currentDateTime.plusMinutes(30);
+        PasswordResetToken resetToken = new PasswordResetToken();
+        resetToken.setUser(user);
+        resetToken.setToken(uuid.toString());
+        resetToken.setExpiryDateTime(expiryDateTime);
+        resetToken.setUser(user);
+        tokenRepository.save(resetToken);
+        String endpointUrl = "http://localhost:8080/resetPassword";
+        return endpointUrl + "?token=" + resetToken.getToken()+"&email="+user.getEmail();
+    }
+
+
+    public String resetPassword(PasswordResetRequest passwordResetRequest) {
+        PasswordResetToken resetToken = tokenRepository.findByToken(passwordResetRequest.getToken())
+                .orElseThrow(() -> new RuntimeException("Token not found"));
+
+        if(this.hasExpired(resetToken.getExpiryDateTime())) {
+            throw new RuntimeException("Token has expired");
+        }
+
+        User user = userRepository.findByEmail(passwordResetRequest.getEmail()).orElseThrow(()-> new UserNotFoundException());
+        user.setPassword(passwordEncoder.encode(passwordResetRequest.getPassword()));
+        tokenRepository.delete(resetToken);
+        return "Reset complete";
+    }
+
+
+    public boolean hasExpired(LocalDateTime expiryDateTime) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        return currentDateTime.isAfter(expiryDateTime);
     }
 }

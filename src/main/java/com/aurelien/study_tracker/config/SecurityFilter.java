@@ -39,6 +39,8 @@ public class SecurityFilter {
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/registerDemoUser").hasAuthority(Permission.DEMO_USER_CREATE.name());
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/verify").permitAll();
                     authConfig.requestMatchers(HttpMethod.POST, "/auth/resend").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/auth/forgotPassword").permitAll();
+                    authConfig.requestMatchers(HttpMethod.POST, "/auth/resetPassword").permitAll();
                     authConfig.requestMatchers("/error").permitAll();
 
                     authConfig.requestMatchers(HttpMethod.GET,"/user/profile").hasAuthority(Permission.USER_DETAILS_GET_FOR_ID.name());
