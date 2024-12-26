@@ -1,9 +1,11 @@
 package com.aurelien.study_tracker.task;
 
+import com.aurelien.study_tracker.session.Session;
 import com.aurelien.study_tracker.user.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -21,6 +23,9 @@ public class Task {
     private User user;
 
     private TaskState state = TaskState.ACTIVE;
+
+    @OneToMany(mappedBy = "task")
+    private List<Session> sessions;
 
 
     public Long getId() {
