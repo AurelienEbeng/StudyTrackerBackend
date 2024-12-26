@@ -7,6 +7,7 @@ public enum Permission {
     TASK_CREATE,
 
     TASK_GET_ALL_FOR_USER_ID,
+    TASK_GET_ALL_ACTIVE_FOR_USER_ID,
 
     TASK_UPDATE,
 

@@ -45,4 +45,13 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/getAllActive")
+    public ResponseEntity<?> getAllActive(@RequestParam Long userId){
+        try {
+            return ResponseEntity.ok(taskService.getAllActive(userId));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

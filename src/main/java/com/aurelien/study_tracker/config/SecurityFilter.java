@@ -48,6 +48,7 @@ public class SecurityFilter {
                     authConfig.requestMatchers(HttpMethod.POST,"/task/create").hasAuthority(Permission.TASK_CREATE.name());
                     authConfig.requestMatchers(HttpMethod.POST,"/task/update").hasAuthority(Permission.TASK_UPDATE.name());
                     authConfig.requestMatchers(HttpMethod.GET,"/task/getAll").hasAuthority(Permission.TASK_GET_ALL_FOR_USER_ID.name());
+                    authConfig.requestMatchers(HttpMethod.GET,"/task/getAllActive").hasAuthority(Permission.TASK_GET_ALL_FOR_USER_ID.name());
 
                     authConfig.anyRequest().denyAll();
 

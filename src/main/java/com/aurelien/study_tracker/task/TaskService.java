@@ -48,8 +48,11 @@ public class TaskService {
 
     public List<TaskDTO> getAll(Long userId){
         var tasks= taskRepository.findByUserId(userId);
-        List<TaskDTO> dtos = new ArrayList<>();
+        return toDTOs(tasks);
+    }
 
+    private List<TaskDTO> toDTOs(List<Task> tasks){
+        List<TaskDTO> dtos = new ArrayList<>();
         for(Task t: tasks){
             TaskDTO dto = new TaskDTO();
             dto.setTitle(t.getTitle());
@@ -63,7 +66,10 @@ public class TaskService {
         return dtos;
     }
 
-
+    public List<TaskDTO> getAllActive(Long userId){
+        var tasks = taskRepository.findByUserIdAndState(userId,TaskState.ACTIVE);
+        return toDTOs(tasks);
+    }
 
 
 
