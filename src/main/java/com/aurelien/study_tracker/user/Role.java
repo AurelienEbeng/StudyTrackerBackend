@@ -7,7 +7,7 @@ public enum Role {
     ADMIN(Arrays.asList(
             Permission.SESSION_CREATE,
             Permission.TASK_CREATE,
-            Permission.TASK_GET_ALL_FOR_ID,
+            Permission.TASK_GET_ALL_FOR_USER_ID,
             Permission.TASK_UPDATE,
             Permission.HIGHLIGHT_GET,
             Permission.USER_DETAILS_GET_FOR_ID,
@@ -20,7 +20,7 @@ public enum Role {
     USER(Arrays.asList(
             Permission.SESSION_CREATE,
             Permission.TASK_CREATE,
-            Permission.TASK_GET_ALL_FOR_ID,
+            Permission.TASK_GET_ALL_FOR_USER_ID,
             Permission.TASK_UPDATE,
             Permission.HIGHLIGHT_GET,
             Permission.USER_DETAILS_GET_FOR_ID,
@@ -31,7 +31,7 @@ public enum Role {
     DEMO_USER(Arrays.asList(
             Permission.SESSION_CREATE,
             Permission.TASK_CREATE,
-            Permission.TASK_GET_ALL_FOR_ID,
+            Permission.TASK_GET_ALL_FOR_USER_ID,
             Permission.TASK_UPDATE,
             Permission.HIGHLIGHT_GET,
             Permission.USER_DETAILS_GET_FOR_ID,

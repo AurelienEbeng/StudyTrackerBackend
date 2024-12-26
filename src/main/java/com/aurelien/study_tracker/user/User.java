@@ -1,5 +1,6 @@
 package com.aurelien.study_tracker.user;
 
+import com.aurelien.study_tracker.task.Task;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,6 +37,9 @@ public class User implements UserDetails {
     @Column(name = "verification_expiration")
     private LocalDateTime verificationCodeExpiresAt;
     private boolean enabled = false;
+
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks;
 
     public String getVerificationCode() {
         return verificationCode;

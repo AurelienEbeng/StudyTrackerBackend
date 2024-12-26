@@ -15,7 +15,7 @@ public class Task {
     private String title;
     private boolean isActive=true;
     private LocalDateTime dateCreated;
-    @OneToOne
+    @ManyToOne
     private User user;
 
     public Long getId() {

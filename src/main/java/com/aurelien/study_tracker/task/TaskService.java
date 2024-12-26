@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TaskService {
@@ -42,4 +43,11 @@ public class TaskService {
         taskRepository.save(task);
 
     }
+
+    public List<TasksDTO> getAll(Long userId){
+        return taskRepository.findAllTasks(userId).orElseThrow(()-> new RuntimeException("User does not have any task"));
+    }
+
+
+
 }
