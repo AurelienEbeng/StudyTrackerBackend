@@ -2,15 +2,15 @@ package com.aurelien.study_tracker.task;
 
 public class TaskUpdateRequest {
     private String title;
-    private boolean isActive;
+    private TaskState state;
     private Long id;
 
     public String getTitle() {
         return title;
     }
 
-    public boolean getIsActive() {
-        return isActive;
+    public TaskState getState() {
+        return state;
     }
 
     public Long getId() {

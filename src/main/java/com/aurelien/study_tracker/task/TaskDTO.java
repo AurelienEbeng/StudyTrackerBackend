@@ -1,27 +1,17 @@
 package com.aurelien.study_tracker.task;
 
-import com.aurelien.study_tracker.user.User;
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "tasks")
-public class Task {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TaskDTO {
     private Long id;
 
     private String title;
 
     private LocalDateTime dateCreated;
 
-    @ManyToOne
-    private User user;
+    private Long userId;
 
-    private TaskState state = TaskState.ACTIVE;
-
+    private TaskState state;
 
     public Long getId() {
         return id;
@@ -47,12 +37,12 @@ public class Task {
         this.dateCreated = dateCreated;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public TaskState getState() {

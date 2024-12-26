@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,14 +40,29 @@ public class TaskService {
         var task = taskRepository.findById(request.getId()).orElseThrow(()-> new TaskNotFoundException());
 
         task.setTitle(request.getTitle());
-        task.setActive(request.getIsActive());
+        task.setState(request.getState());
         taskRepository.save(task);
 
     }
 
-    public List<TasksDTO> getAll(Long userId){
-        return taskRepository.findAllTasks(userId).orElseThrow(()-> new RuntimeException("User does not have any task"));
+    public List<TaskDTO> getAll(Long userId){
+        var tasks= taskRepository.findByUserId(userId);
+        List<TaskDTO> dtos = new ArrayList<>();
+
+        for(Task t: tasks){
+            TaskDTO dto = new TaskDTO();
+            dto.setTitle(t.getTitle());
+            dto.setId(t.getId());
+            dto.setState(t.getState());
+            dto.setUserId(t.getUser().getId());
+            dto.setDateCreated(t.getDateCreated());
+            dtos.add(dto);
+        }
+
+        return dtos;
     }
+
+
 
 
 
