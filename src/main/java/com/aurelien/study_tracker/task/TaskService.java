@@ -41,6 +41,7 @@ public class TaskService {
 
         task.setTitle(request.getTitle());
         task.setState(request.getState());
+
         taskRepository.save(task);
 
     }
