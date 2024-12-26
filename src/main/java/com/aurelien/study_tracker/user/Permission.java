@@ -8,6 +8,8 @@ public enum Permission {
 
     TASK_GET_ALL_FOR_ID,
 
+    TASK_UPDATE,
+
     HIGHLIGHT_GET,
 
     USER_DETAILS_GET_FOR_ID,

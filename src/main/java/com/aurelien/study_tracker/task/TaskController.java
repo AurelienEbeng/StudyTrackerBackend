@@ -18,7 +18,7 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> register(@RequestBody TaskCreateRequest request){
+    public ResponseEntity<String> create(@RequestBody TaskCreateRequest request){
         try {
             taskService.create(request);
             return ResponseEntity.ok("Task created successfully");
@@ -26,4 +26,15 @@ public class TaskController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<String> update(@RequestBody TaskUpdateRequest request){
+        try {
+            taskService.update(request);
+            return ResponseEntity.ok("Task updated successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.aurelien.study_tracker.task;
 
 import com.aurelien.study_tracker.exception.TaskAlreadyExistException;
+import com.aurelien.study_tracker.exception.TaskNotFoundException;
 import com.aurelien.study_tracker.exception.UserNotFoundException;
 import com.aurelien.study_tracker.user.User;
 import com.aurelien.study_tracker.user.UserRepository;
@@ -30,5 +31,15 @@ public class TaskService {
         task.setTitle(request.getTitle());
         task.setUser(user);
         taskRepository.save(task);
+    }
+
+    public void update(TaskUpdateRequest request){
+
+        var task = taskRepository.findById(request.getId()).orElseThrow(()-> new TaskNotFoundException());
+
+        task.setTitle(request.getTitle());
+        task.setActive(request.getIsActive());
+        taskRepository.save(task);
+
     }
 }
