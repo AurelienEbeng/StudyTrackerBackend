@@ -15,7 +15,7 @@ public class TotalDurationPerDay {
 
     private Duration totalDuration;
 
-    private LocalDate dateCreated;
+    private LocalDate date;
 
     @ManyToOne
     private User user;
@@ -36,12 +36,12 @@ public class TotalDurationPerDay {
         this.totalDuration = totalDuration;
     }
 
-    public LocalDate getDateCreated() {
-        return dateCreated;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateCreated(LocalDate dateCreated) {
-        this.dateCreated = dateCreated;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public User getUser() {

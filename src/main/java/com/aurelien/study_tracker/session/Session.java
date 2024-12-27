@@ -4,6 +4,7 @@ import com.aurelien.study_tracker.task.Task;
 import jakarta.persistence.*;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +18,7 @@ public class Session {
 
     private String comment;
 
-    private LocalDateTime dateTimeCreated;
+    private LocalDate date;
 
     @ManyToOne
     private Task task;
@@ -46,12 +47,12 @@ public class Session {
         this.comment = comment;
     }
 
-    public LocalDateTime getDateTimeCreated() {
-        return dateTimeCreated;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTimeCreated(LocalDateTime dateTimeCreated) {
-        this.dateTimeCreated = dateTimeCreated;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Task getTask() {
