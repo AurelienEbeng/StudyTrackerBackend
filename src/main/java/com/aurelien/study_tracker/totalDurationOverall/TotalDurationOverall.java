@@ -14,4 +14,20 @@ public class TotalDurationOverall {
     private User user;
 
     private Duration totalDuration;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Duration getTotalDuration() {
+        return totalDuration;
+    }
+
+    public void setTotalDuration(Duration totalDuration) {
+        this.totalDuration = totalDuration;
+    }
 }

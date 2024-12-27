@@ -1,9 +1,11 @@
 package com.aurelien.study_tracker.totalDurationPerWeek;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.time.LocalDate;
 import java.util.Optional;
 
-public interface TotalDurationPerWeekRepository<TotalDurationPerWeek,Long> {
+public interface TotalDurationPerWeekRepository extends JpaRepository<TotalDurationPerWeek,Long> {
     Optional<TotalDurationPerWeek> findByUserIdAndStartDateGreaterThanAndEndDateLessThan
             (Long userId, LocalDate startDate, LocalDate endDate);
 }
