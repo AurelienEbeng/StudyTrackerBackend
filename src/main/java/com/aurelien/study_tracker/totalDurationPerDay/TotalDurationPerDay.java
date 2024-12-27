@@ -19,4 +19,36 @@ public class TotalDurationPerDay {
 
     @ManyToOne
     private User user;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Duration getTotalDuration() {
+        return totalDuration;
+    }
+
+    public void setTotalDuration(Duration totalDuration) {
+        this.totalDuration = totalDuration;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
