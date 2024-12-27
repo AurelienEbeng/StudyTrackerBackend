@@ -1,6 +1,8 @@
 package com.aurelien.study_tracker.user;
 
 import com.aurelien.study_tracker.task.Task;
+import com.aurelien.study_tracker.totalDurationPerDay.TotalDurationPerDay;
+import com.aurelien.study_tracker.totalDurationPerWeek.TotalDurationPerWeek;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,6 +42,12 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user")
+    private List<TotalDurationPerDay> totalDurationPerDays;
+
+    @OneToMany(mappedBy = "user")
+    private List<TotalDurationPerWeek> totalDurationPerWeeks;
 
     public String getVerificationCode() {
         return verificationCode;
