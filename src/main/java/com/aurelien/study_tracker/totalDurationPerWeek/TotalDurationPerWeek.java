@@ -15,9 +15,9 @@ public class TotalDurationPerWeek {
 
     private Duration totalDuration;
 
-    private LocalDate StartDate;
+    private LocalDate startDate;
 
-    private LocalDate EndDate;
+    private LocalDate endDate;
 
     @ManyToOne
     private User user;
@@ -39,19 +39,19 @@ public class TotalDurationPerWeek {
     }
 
     public LocalDate getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
     public void setStartDate(LocalDate startDate) {
-        StartDate = startDate;
+        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
-        return EndDate;
+        return endDate;
     }
 
     public void setEndDate(LocalDate endDate) {
-        EndDate = endDate;
+        this.endDate = endDate;
     }
 
     public User getUser() {

@@ -72,7 +72,7 @@ public class SessionService {
     }
 
     private void updateTotalDurationPerDay(User user, Duration duration, LocalDate date){
-        var totalDurationPerDay = totalDurationPerDayRepository.findByUserIdAndDateCreated(user.getId(), date);
+        var totalDurationPerDay = totalDurationPerDayRepository.findByUserIdAndDate(user.getId(), date);
         if(totalDurationPerDay==null){
             createTotalDurationPerDay(user, duration, date);
             return;
@@ -92,8 +92,10 @@ public class SessionService {
     }
 
     private void updateTotalDurationPerWeek(User user, Duration duration, LocalDate date){
-        var totalDurationPerWeek = totalDurationPerWeekRepository.findByUserIdAndStartDateGreaterThanAndEndDateLessThan
-                (user.getId(), date, date);
+        LocalDate firstDayOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        LocalDate lastDayOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
+        var totalDurationPerWeek = totalDurationPerWeekRepository.findByUserIdAndStartDateAndEndDate
+                (user.getId(), firstDayOfWeek, lastDayOfWeek);
 
         if(totalDurationPerWeek==null){
             createTotalDurationPerWeek(user, duration, date);
