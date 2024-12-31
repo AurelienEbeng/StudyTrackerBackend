@@ -29,8 +29,8 @@ public class TaskDTO {
         this.title = title;
     }
 
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
+    public String getDateCreated() {
+        return dateCreated.toString();
     }
 
     public void setDateCreated(LocalDateTime dateCreated) {
