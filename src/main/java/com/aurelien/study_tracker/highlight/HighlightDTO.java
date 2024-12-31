@@ -8,6 +8,7 @@ public class HighlightDTO {
     private Duration lastWeekTotalDuration;
     private Duration currentWeekTotalDuration;
 
+
     public void setTotalDurationOverall(Duration totalDurationOverall) {
         this.totalDurationOverall = totalDurationOverall;
     }
@@ -24,19 +25,19 @@ public class HighlightDTO {
         this.currentWeekTotalDuration = currentWeekTotalDuration;
     }
 
-    public Duration getTotalDurationOverall() {
-        return totalDurationOverall;
+    public String getTotalDurationOverall() {
+        return totalDurationOverall.toString();
     }
 
-    public Duration getCurrentDayTotalDuration() {
-        return currentDayTotalDuration;
+    public String getCurrentDayTotalDuration() {
+        return currentDayTotalDuration.toString();
     }
 
-    public Duration getLastWeekTotalDuration() {
-        return lastWeekTotalDuration;
+    public String getLastWeekTotalDuration() {
+        return lastWeekTotalDuration.toString();
     }
 
-    public Duration getCurrentWeekTotalDuration() {
-        return currentWeekTotalDuration;
+    public String getCurrentWeekTotalDuration() {
+        return currentWeekTotalDuration.toString();
     }
 }
