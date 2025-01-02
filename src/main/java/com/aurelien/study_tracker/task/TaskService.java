@@ -26,7 +26,7 @@ public class TaskService {
             throw new TaskAlreadyExistException();
         }
 
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UserNotFoundException());
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new UserNotFoundException());
 
         var task = new Task();
         task.setDateCreated(LocalDateTime.now());

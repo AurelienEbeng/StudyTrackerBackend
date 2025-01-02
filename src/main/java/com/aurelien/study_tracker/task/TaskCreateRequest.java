@@ -2,13 +2,13 @@ package com.aurelien.study_tracker.task;
 
 public class TaskCreateRequest {
     private String title;
-    private String email;
+    private Long userId;
 
     public String getTitle() {
         return title;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getUserId() {
+        return userId;
     }
 }
