@@ -16,7 +16,7 @@ public class UserService {
         userResponse.setId(user.getId());
         userResponse.setRole(user.getRole());
         userResponse.setUsername(user.getUsername());
-        userResponse.setDateJoined(user.getDateJoined());
+        userResponse.setDateJoined(user.getDateJoined().toString());
         return userResponse;
     }
 }

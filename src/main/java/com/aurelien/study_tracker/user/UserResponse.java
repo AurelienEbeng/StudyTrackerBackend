@@ -14,7 +14,7 @@ public class UserResponse {
 
     private String email;
 
-    private LocalDateTime dateJoined;
+    private String dateJoined;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -43,20 +43,20 @@ public class UserResponse {
         this.email = email;
     }
 
-    public LocalDateTime getDateJoined() {
-        return dateJoined;
-    }
-
-    public void setDateJoined(LocalDateTime dateJoined) {
-        this.dateJoined = dateJoined;
-    }
-
     public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getDateJoined() {
+        return dateJoined;
+    }
+
+    public void setDateJoined(String dateJoined) {
+        this.dateJoined = dateJoined;
     }
 }
 
