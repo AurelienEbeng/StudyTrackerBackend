@@ -1,6 +1,8 @@
 package com.aurelien.study_tracker.session;
 
 import com.aurelien.study_tracker.exception.TaskNotFoundException;
+import com.aurelien.study_tracker.task.Task;
+import com.aurelien.study_tracker.task.TaskDTO;
 import com.aurelien.study_tracker.task.TaskRepository;
 import com.aurelien.study_tracker.totalDurationOverall.TotalDurationOverall;
 import com.aurelien.study_tracker.totalDurationOverall.TotalDurationOverallRepository;
@@ -16,6 +18,8 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SessionService {
@@ -116,5 +120,21 @@ public class SessionService {
         totalDurationPerWeek.setStartDate(firstDayOfWeek);
         totalDurationPerWeek.setEndDate(lastDayOfWeek);
         totalDurationPerWeekRepository.save(totalDurationPerWeek);
+    }
+
+    public List<SessionDTO> getTaskSessions(Long taskId){
+        var sessions = sessionRepository.findByTaskId(taskId);
+        List<SessionDTO> dtos = new ArrayList<>();
+        for(Session s: sessions){
+            SessionDTO dto = new SessionDTO();
+            dto.setComment(s.getComment());
+            dto.setTaskId(s.getTask().getId());
+            dto.setDuration(s.getDuration());
+            dto.setId(s.getId());
+            dto.setDate(s.getDate());
+            dtos.add(dto);
+            System.out.println(dto.getDate());
+        }
+        return dtos;
     }
 }

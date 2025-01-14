@@ -1,27 +1,18 @@
 package com.aurelien.study_tracker.session;
 
-import com.aurelien.study_tracker.task.Task;
-import jakarta.persistence.*;
-
 import java.time.Duration;
 import java.time.LocalDate;
 
-
-@Entity
-@Table(name = "sessions")
-public class Session {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class SessionDTO {
     private Long id;
 
     private Duration duration;
 
     private String comment;
 
-    private LocalDate date;
+    private String date;
 
-    @ManyToOne
-    private Task task;
+    private Long taskId;
 
     public Long getId() {
         return id;
@@ -31,8 +22,8 @@ public class Session {
         this.id = id;
     }
 
-    public Duration getDuration() {
-        return duration;
+    public String getDuration() {
+        return duration.toString();
     }
 
     public void setDuration(Duration duration) {
@@ -48,18 +39,18 @@ public class Session {
     }
 
     public String getDate() {
-        return date.toString();
+        return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Task getTask() {
-        return task;
+    public Long getTaskId() {
+        return taskId;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
     }
 }

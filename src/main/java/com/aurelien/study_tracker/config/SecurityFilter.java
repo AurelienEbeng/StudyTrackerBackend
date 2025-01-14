@@ -52,6 +52,7 @@ public class SecurityFilter {
 
 
                     authConfig.requestMatchers(HttpMethod.POST,"/session/create").hasAuthority(Permission.SESSION_CREATE.name());
+                    authConfig.requestMatchers(HttpMethod.GET,"/session/list").hasAuthority(Permission.SESSION_TASK_LIST.name());
 
                     authConfig.requestMatchers(HttpMethod.GET,"/highlight/get").hasAuthority(Permission.HIGHLIGHT_GET.name());
 

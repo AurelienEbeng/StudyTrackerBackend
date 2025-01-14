@@ -16,7 +16,8 @@ public enum Role {
             Permission.DEMO_USER_CREATE,
             Permission.FORGOT_PASSWORD,
             Permission.RESET_PASSWORD,
-            Permission.VERIFY_EMAIL)),
+            Permission.VERIFY_EMAIL,
+            Permission.SESSION_TASK_LIST)),
 
     USER(Arrays.asList(
             Permission.SESSION_CREATE,
@@ -28,7 +29,8 @@ public enum Role {
             Permission.USER_DETAILS_GET_FOR_ID,
             Permission.FORGOT_PASSWORD,
             Permission.RESET_PASSWORD,
-            Permission.VERIFY_EMAIL)),
+            Permission.VERIFY_EMAIL,
+            Permission.SESSION_TASK_LIST)),
 
     DEMO_USER(Arrays.asList(
             Permission.SESSION_CREATE,
@@ -41,7 +43,8 @@ public enum Role {
             Permission.DEMO_USER_LOGIN,
             Permission.FORGOT_PASSWORD,
             Permission.RESET_PASSWORD,
-            Permission.VERIFY_EMAIL));
+            Permission.VERIFY_EMAIL,
+            Permission.SESSION_TASK_LIST));
 
 
     private List<Permission> permissions;

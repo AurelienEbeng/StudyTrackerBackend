@@ -23,5 +23,7 @@ public enum Permission {
 
     RESET_PASSWORD,
 
-    VERIFY_EMAIL
+    VERIFY_EMAIL,
+
+    SESSION_TASK_LIST
 }
