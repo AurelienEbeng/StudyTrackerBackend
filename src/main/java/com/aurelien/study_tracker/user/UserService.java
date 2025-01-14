@@ -9,8 +9,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserResponse profile(UserRequest userRequest){
-        User user = userRepository.findById(userRequest.getId()).get();
+    public UserResponse profile(Long userId){
+        User user = userRepository.findById(userId).get();
         UserResponse userResponse = new UserResponse();
         userResponse.setEmail(user.getEmail());
         userResponse.setId(user.getId());

@@ -14,7 +14,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<UserResponse>profile(@RequestBody UserRequest request){
-        return ResponseEntity.ok(userService.profile(request));
+    public ResponseEntity<UserResponse>profile(@RequestParam Long userId){
+        return ResponseEntity.ok(userService.profile(userId));
     }
 }
