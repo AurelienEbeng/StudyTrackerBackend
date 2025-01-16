@@ -175,7 +175,8 @@ public class AuthenticationService {
         Email email = new Email();
         email.setTo(user.getEmail());
         email.setSubject("Reset Password");
-        email.setText("Hello \n\n" + "Please click on this link to Reset your Password :" + resetLink + ". \n\n" + "Regards \n" + "Aurelien");
+        email.setText("Hello \n\n" + "Please click on this link to Reset your Password :" + resetLink + ". \n\n" +
+                "\nThe link will expire in 30 minutes" + "Regards \n" + "Aurelien");
         emailService.sendEmail(email);
 
     }
@@ -198,7 +199,7 @@ public class AuthenticationService {
         resetToken.setExpiryDateTime(expiryDateTime);
         resetToken.setUser(user);
         tokenRepository.save(resetToken);
-        String endpointUrl = "http://localhost:8080/resetPassword";
+        String endpointUrl = "http://localhost:5173/resetPassword";
         return endpointUrl + "?token=" + resetToken.getToken()+"&email="+user.getEmail();
     }
 
