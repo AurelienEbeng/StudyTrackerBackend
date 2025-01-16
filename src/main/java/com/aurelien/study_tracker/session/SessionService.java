@@ -2,7 +2,6 @@ package com.aurelien.study_tracker.session;
 
 import com.aurelien.study_tracker.exception.TaskNotFoundException;
 import com.aurelien.study_tracker.task.Task;
-import com.aurelien.study_tracker.task.TaskDTO;
 import com.aurelien.study_tracker.task.TaskRepository;
 import com.aurelien.study_tracker.totalDurationOverall.TotalDurationOverall;
 import com.aurelien.study_tracker.totalDurationOverall.TotalDurationOverallRepository;
@@ -53,6 +52,7 @@ public class SessionService {
         updateTotalDurationOverall(task.getUser(), duration);
         updateTotalDurationPerDay(task.getUser(),duration, date);
         updateTotalDurationPerWeek(task.getUser(),duration, date);
+        updateTaskTotalDuration(task,duration);
     }
 
     private void updateTotalDurationOverall(User user, Duration duration){
@@ -111,7 +111,7 @@ public class SessionService {
         totalDurationPerWeekRepository.save(totalDurationPerWeek);
     }
 
-    public void createTotalDurationPerWeek(User user, Duration duration, LocalDate date){
+    private void createTotalDurationPerWeek(User user, Duration duration, LocalDate date){
         var totalDurationPerWeek = new TotalDurationPerWeek();
         totalDurationPerWeek.setUser(user);
         totalDurationPerWeek.setTotalDuration(duration);
@@ -120,6 +120,12 @@ public class SessionService {
         totalDurationPerWeek.setStartDate(firstDayOfWeek);
         totalDurationPerWeek.setEndDate(lastDayOfWeek);
         totalDurationPerWeekRepository.save(totalDurationPerWeek);
+    }
+
+    private void updateTaskTotalDuration(Task task, Duration duration){
+        Duration totalDuration = duration.plus(task.getTotalDuration());
+        task.setTotalDuration(totalDuration);
+        taskRepository.save(task);
     }
 
     public List<SessionDTO> getTaskSessions(Long taskId){

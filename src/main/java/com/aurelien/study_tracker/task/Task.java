@@ -4,6 +4,7 @@ import com.aurelien.study_tracker.session.Session;
 import com.aurelien.study_tracker.user.User;
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class Task {
     @OneToMany(mappedBy = "task")
     private List<Session> sessions;
 
+    private Duration totalDuration = Duration.ZERO;
 
     public Long getId() {
         return id;
@@ -66,5 +68,13 @@ public class Task {
 
     public void setState(TaskState state) {
         this.state = state;
+    }
+
+    public Duration getTotalDuration() {
+        return totalDuration;
+    }
+
+    public void setTotalDuration(Duration totalDuration) {
+        this.totalDuration = totalDuration;
     }
 }
