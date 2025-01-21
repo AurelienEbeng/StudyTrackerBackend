@@ -60,6 +60,7 @@ public class TaskService {
             dto.setState(t.getState());
             dto.setUserId(t.getUser().getId());
             dto.setDateCreated(t.getDateCreated());
+            dto.setTotalDuration(t.getTotalDuration());
             dtos.add(dto);
         }
 

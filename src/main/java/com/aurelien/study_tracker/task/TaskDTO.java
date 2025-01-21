@@ -1,5 +1,6 @@
 package com.aurelien.study_tracker.task;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class TaskDTO {
@@ -12,6 +13,8 @@ public class TaskDTO {
     private Long userId;
 
     private TaskState state;
+
+    private Duration totalDuration;
 
     public Long getId() {
         return id;
@@ -51,5 +54,13 @@ public class TaskDTO {
 
     public void setState(TaskState state) {
         this.state = state;
+    }
+
+    public String getTotalDuration() {
+        return totalDuration.toString();
+    }
+
+    public void setTotalDuration(Duration totalDuration) {
+        this.totalDuration = totalDuration;
     }
 }
