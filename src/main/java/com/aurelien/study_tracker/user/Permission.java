@@ -3,6 +3,7 @@ package com.aurelien.study_tracker.user;
 public enum Permission {
 
     SESSION_CREATE,
+    SESSION_DELETE,
 
     TASK_CREATE,
 

@@ -6,6 +6,7 @@ import java.util.List;
 public enum Role {
     ADMIN(Arrays.asList(
             Permission.SESSION_CREATE,
+            Permission.SESSION_DELETE,
             Permission.TASK_CREATE,
             Permission.TASK_GET_ALL_FOR_USER_ID,
             Permission.TASK_GET_ALL_ACTIVE_FOR_USER_ID,
@@ -21,6 +22,7 @@ public enum Role {
 
     USER(Arrays.asList(
             Permission.SESSION_CREATE,
+            Permission.SESSION_DELETE,
             Permission.TASK_CREATE,
             Permission.TASK_GET_ALL_FOR_USER_ID,
             Permission.TASK_GET_ALL_ACTIVE_FOR_USER_ID,
@@ -34,6 +36,7 @@ public enum Role {
 
     DEMO_USER(Arrays.asList(
             Permission.SESSION_CREATE,
+            Permission.SESSION_DELETE,
             Permission.TASK_CREATE,
             Permission.TASK_GET_ALL_FOR_USER_ID,
             Permission.TASK_GET_ALL_ACTIVE_FOR_USER_ID,

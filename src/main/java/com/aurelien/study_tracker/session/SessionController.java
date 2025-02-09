@@ -31,4 +31,14 @@ public class SessionController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(@RequestParam Long sessionId){
+        try {
+            sessionService.delete(sessionId);
+            return ResponseEntity.ok("Session deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

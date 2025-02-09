@@ -51,6 +51,10 @@ public class Session {
         return date.toString();
     }
 
+    public LocalDate getLocalDate() {
+        return this.date;
+    }
+
     public void setDate(LocalDate date) {
         this.date = date;
     }

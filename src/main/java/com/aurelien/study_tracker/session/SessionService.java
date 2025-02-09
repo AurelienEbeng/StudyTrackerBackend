@@ -143,4 +143,51 @@ public class SessionService {
         }
         return dtos;
     }
+
+    public void delete(Long sessionId){
+        Session session = sessionRepository.findById(sessionId)
+                .orElseThrow(()-> new RuntimeException("Session does not exist"));
+
+        var task = taskRepository.findById(session.getTask().getId())
+                .orElseThrow(()-> new TaskNotFoundException());
+
+        decreaseTotalDurationOverall(task.getUser(),session.getDuration());
+        decreaseTotalDurationPerDay(task.getUser(),session.getDuration(),session.getLocalDate());
+        decreaseTotalDurationPerWeek(task.getUser(),session.getDuration(),session.getLocalDate());
+        decreaseTaskTotalDuration(task, session.getDuration());
+        sessionRepository.delete(session);
+    }
+
+    private void decreaseTotalDurationOverall(User user, Duration duration){
+        var totalDurationOverall=totalDurationOverallRepository.findByUserId(user.getId());
+
+        Duration totalDuration = totalDurationOverall.getTotalDuration().minus(duration);
+        totalDurationOverall.setTotalDuration(totalDuration);
+        totalDurationOverallRepository.save(totalDurationOverall);
+    }
+
+    private void decreaseTotalDurationPerDay(User user, Duration duration, LocalDate date){
+        var totalDurationPerDay = totalDurationPerDayRepository.findByUserIdAndDate(user.getId(), date);
+
+        Duration totalDuration = totalDurationPerDay.getTotalDuration().minus(duration);
+        totalDurationPerDay.setTotalDuration(totalDuration);
+        totalDurationPerDayRepository.save(totalDurationPerDay);
+    }
+
+    private void decreaseTotalDurationPerWeek(User user, Duration duration, LocalDate date){
+        LocalDate firstDayOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        LocalDate lastDayOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
+        var totalDurationPerWeek = totalDurationPerWeekRepository.findByUserIdAndStartDateAndEndDate
+                (user.getId(), firstDayOfWeek, lastDayOfWeek);
+
+        Duration totalDuration = totalDurationPerWeek.getTotalDuration().minus(duration);
+        totalDurationPerWeek.setTotalDuration(totalDuration);
+        totalDurationPerWeekRepository.save(totalDurationPerWeek);
+    }
+
+    private void decreaseTaskTotalDuration(Task task, Duration duration){
+        Duration totalDuration = task.getTotalDuration().minus(duration);
+        task.setTotalDuration(totalDuration);
+        taskRepository.save(task);
+    }
 }
